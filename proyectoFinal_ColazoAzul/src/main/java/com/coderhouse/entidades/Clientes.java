@@ -1,5 +1,6 @@
 package com.coderhouse.entidades;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +27,8 @@ public class Clientes {
 	private String apellido;
 	@Column(name = "dni")
 	private int dni;
+	@Column (name = "fecha_nacimiento")
+	private LocalDate fechaNacimiento;
 	
 	//Foreign key
 	@OneToMany(mappedBy = "cliente")
@@ -61,8 +64,14 @@ public class Clientes {
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
 
-	
+
 	//Hashcode and Equals para dni
 	@Override
 	public int hashCode() {
