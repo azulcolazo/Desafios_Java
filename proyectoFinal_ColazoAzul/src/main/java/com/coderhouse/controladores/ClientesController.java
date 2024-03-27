@@ -64,7 +64,7 @@ public class ClientesController {
 		return new ResponseEntity<>(cliente, HttpStatus.CREATED);
 	}
 	
-	// Solicitud POST, metodo para editar el nombre y el apellido de un cliente. Los datos necesarios son proporcionados a traves de la URL
+	// Solicitud PUT, metodo para editar el nombre y el apellido de un cliente. Los datos necesarios son proporcionados a traves de la URL
 	@PutMapping(value = "/{id}/editar/{nombre}/{apellido}", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Clientes> editarNombreCliente(@PathVariable("id") Integer id, @PathVariable("nombre") String nombre, @PathVariable("apellido") String apellido) {
 		try {
