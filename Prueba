@@ -1,0 +1,16 @@
+// Solicitud POST, metodo para editar el nombre y el apellido de un cliente. Los datos necesarios son proporcionados a traves de la URL
+	@PutMapping(value = "/{id}/editar/{nombre}/{apellido}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Clientes> editarNombreCliente(@PathVariable("id") Integer id, @PathVariable("nombre") String nombre, @PathVariable("apellido") String apellido) {
+		try {
+			Clientes clienteAEditar = clientesRepository.findById(id).orElse(null);
+			if (clienteAEditar != null) {
+				clienteAEditar.setNombre(nombre);
+				clienteAEditar.setApellido(apellido);
+				return new ResponseEntity<Clientes>(clienteAEditar, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
+	}
