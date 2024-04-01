@@ -40,6 +40,7 @@ public class ClientesController {
 
 	} 
 	
+	// Desafio de clase 11
 	// Solicitud GET, metodo para calcular la edad del cliente, identificado por el id proporcionado en la URL, a partir de su fecha de nacimiento
 	@GetMapping(value = "/{id}/edad", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Integer> edadCliente(@PathVariable("id") Integer id) {
@@ -64,14 +65,15 @@ public class ClientesController {
 		return new ResponseEntity<>(cliente, HttpStatus.CREATED);
 	}
 	
-	// Solicitud POST, metodo para editar el nombre y el apellido de un cliente. Los datos necesarios son proporcionados a traves de la URL
-	@PutMapping(value = "/{id}/editar/{nombre}/{apellido}", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Clientes> editarNombreCliente(@PathVariable("id") Integer id, @PathVariable("nombre") String nombre, @PathVariable("apellido") String apellido) {
+	// Solicitud PUT, metodo para editar el nombre y apellido de un cliente a través del ID proporcionado en la URL
+	@PutMapping(value = "/{id}/editar/", consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Clientes> editarNombreCliente(@PathVariable("id") Integer id, @RequestBody Clientes clienteActualizado) {
 		try {
 			Clientes clienteAEditar = clientesRepository.findById(id).orElse(null);
 			if (clienteAEditar != null) {
-				clienteAEditar.setNombre(nombre);
-				clienteAEditar.setApellido(apellido);
+				clienteAEditar.setNombre(clienteActualizado.getNombre());
+				clienteAEditar.setApellido(clienteActualizado.getApellido());
+				clientesRepository.save(clienteAEditar);
 				return new ResponseEntity<Clientes>(clienteAEditar, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -80,6 +82,7 @@ public class ClientesController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 	}
+	
 	
 	// Solicitud DELETE, metodo para borrar un cliente a partir de un id
 	@DeleteMapping(value = "{id}/borrar")
