@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Clientes {
+public class Clientes{
 
 	//Campos-Atributos
 	@Id
