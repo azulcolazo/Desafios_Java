@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coderhouse.entidades.Clientes;
-import com.coderhouse.servicios.ClientesService;
+import com.coderhouse.entidades.Cliente;
+import com.coderhouse.servicios.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
-public class ClientesController {
+public class ClienteController {
 	
 	@Autowired
-	private ClientesService clientesService;
+	private ClienteService clienteService;
 	
 	// Solicitud GET, metodo para listar todos los clientes de la base de datos
 	@GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<Clientes>> listarClientes() {
+	public ResponseEntity<List<Cliente>> listarClientes() {
 		try {
-			List<Clientes> clientes = clientesService.listarClientes();
-			return new ResponseEntity<>(clientes, HttpStatus.OK); 
+			List<Cliente> cliente = clienteService.listarClientes();
+			return new ResponseEntity<>(cliente, HttpStatus.OK); 
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 
@@ -42,7 +42,7 @@ public class ClientesController {
 	@GetMapping(value = "/{id}/edad", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Integer> edadCliente(@PathVariable("id") Integer id) {
 		try {
-			int edad = clientesService.edadCliente(id);
+			int edad = clienteService.edadCliente(id);
 			if (edad != -1) {
 				return new ResponseEntity<>(edad, HttpStatus.OK);
 			} else {
@@ -55,9 +55,9 @@ public class ClientesController {
 	
 	// Solicitud POST, metodo para agregar un cliente, proporcionando los datos de éste a través del formato JSON
 	@PostMapping(value = "/agregar", consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Clientes> agregarCliente(@RequestBody Clientes cliente) {
+	public ResponseEntity<Cliente> agregarCliente(@RequestBody Cliente cliente) {
 		try {
-			Clientes clienteAgregado = clientesService.agregarCliente(cliente);
+			Cliente clienteAgregado = clienteService.agregarCliente(cliente);
 			return new ResponseEntity<>(clienteAgregado, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -65,11 +65,11 @@ public class ClientesController {
 	}
 	// Solicitud PUT, metodo para editar el nombre y apellido de un cliente a través del ID proporcionado en la URL
 	@PutMapping(value = "/{id}/editar/", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Clientes> editarNombreCliente(@PathVariable("id") int id, @RequestBody Clientes clienteActualizado) {
+	public ResponseEntity<Cliente> editarNombreCliente(@PathVariable("id") int id, @RequestBody Cliente clienteActualizado) {
 		try {
-			Clientes clienteAEditar = clientesService.editarNombreCliente(id, clienteActualizado);
+			Cliente clienteAEditar = clienteService.editarNombreCliente(id, clienteActualizado);
 			if (clienteAEditar != null) {
-				return new ResponseEntity<Clientes>(clienteAEditar, HttpStatus.OK);
+				return new ResponseEntity<Cliente>(clienteAEditar, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -83,7 +83,7 @@ public class ClientesController {
 	@DeleteMapping(value = "{id}/eliminar")
 	public ResponseEntity<Void> eliminarClientePorId (@PathVariable("id") int id) {
 		try {
-			boolean clienteABorrar = clientesService.eliminarClientePorId(id);
+			boolean clienteABorrar = clienteService.eliminarClientePorId(id);
 			if (clienteABorrar) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} else {
@@ -95,11 +95,11 @@ public class ClientesController {
 	}
 
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Clientes> mostrarClientPorId(@PathVariable("id") int id) {
+	public ResponseEntity<Cliente> mostrarClientPorId(@PathVariable("id") int id) {
 		try {
-			Clientes cliente = clientesService.mostrarClientePorId(id);
+			Cliente cliente = clienteService.mostrarClientePorId(id);
 			if (cliente != null) {
-				return new ResponseEntity<Clientes>(cliente, HttpStatus.OK);
+				return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

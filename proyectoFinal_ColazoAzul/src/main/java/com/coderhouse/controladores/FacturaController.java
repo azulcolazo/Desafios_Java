@@ -15,30 +15,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coderhouse.entidades.Facturas;
-import com.coderhouse.servicios.FacturasService;
+import com.coderhouse.entidades.Factura;
+import com.coderhouse.servicios.FacturaService;
 
 @RestController
 @RequestMapping("/facturas")
-public class FacturasController {
+public class FacturaController {
 
 	@Autowired
-	private FacturasService facturasService;
+	private FacturaService facturaService;
 	
 	@GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<Facturas>> listarFacturas() {
+	public ResponseEntity<List<Factura>> listarFacturas() {
 		try {
-			List<Facturas> facturas = facturasService.listarFacturas();
-			return new ResponseEntity<>(facturas, HttpStatus.OK);
+			List<Factura> factura = facturaService.listarFacturas();
+			return new ResponseEntity<>(factura, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Facturas> mostrarFacturaPorId(@PathVariable("id") int id) {
+	public ResponseEntity<Factura> mostrarFacturaPorId(@PathVariable("id") int id) {
 		try {
-			Facturas factura = facturasService.mostrarFacturaPorId(id);
+			Factura factura = facturaService.mostrarFacturaPorId(id);
 			return new ResponseEntity<>(factura, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -46,9 +46,9 @@ public class FacturasController {
 	}
 	
 	@PutMapping(value = "/{id}/editar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Facturas> editarFacturaPorId(@PathVariable("id") int id, @RequestBody Facturas factura) {
+	public ResponseEntity<Factura> editarFacturaPorId(@PathVariable("id") int id, @RequestBody Factura factura) {
 		try {
-			Facturas facturaEditada = facturasService.editarFacturaPorId(factura, id);
+			Factura facturaEditada = facturaService.editarFacturaPorId(factura, id);
 			if (facturaEditada != null) {
 				return new ResponseEntity<>(facturaEditada, HttpStatus.OK);
 			} else {
@@ -60,10 +60,14 @@ public class FacturasController {
 	}
 	
 	@PostMapping(value = "/{id}/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Facturas> agregarFactura(@PathVariable("id") int id, @RequestBody Facturas factura) {
+	public ResponseEntity<Factura> agregarFactura(@PathVariable("id") int id, @RequestBody Factura factura) {
 		try {
-			Facturas facturaGuardada = facturasService.agregarFactura(factura);
-			return new ResponseEntity<>(facturaGuardada, HttpStatus.OK);
+			Factura facturaGuardada = facturaService.agregarFactura(factura);
+			if (facturaGuardada != null) {
+				return new ResponseEntity<>(facturaGuardada, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -72,7 +76,7 @@ public class FacturasController {
 	@DeleteMapping(value = "/{id}/eliminar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Void> eliminarFacturaPorId(@PathVariable("id") int id) {
 		try {
-			boolean eliminado = facturasService.eliminarClientePorId(id);
+			boolean eliminado = facturaService.eliminarClientePorId(id);
 			if (eliminado) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} else {

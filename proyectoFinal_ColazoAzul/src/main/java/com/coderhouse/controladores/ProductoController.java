@@ -13,28 +13,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.coderhouse.entidades.Productos;
-import com.coderhouse.servicios.ProductosService;
+import com.coderhouse.entidades.Producto;
+import com.coderhouse.servicios.ProductoService;
 
-public class ProductosController {
+public class ProductoController {
 
 	@Autowired
-	private ProductosService productosService;
+	private ProductoService productoService;
 	
 	@GetMapping(value= "/", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<Productos>> listarProductos() {
+	public ResponseEntity<List<Producto>> listarProductos() {
 		try {
-			List<Productos> productos = productosService.listarProductos();
-			return new ResponseEntity<>(productos, HttpStatus.OK);
+			List<Producto> producto = productoService.listarProductos();
+			return new ResponseEntity<>(producto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@PostMapping(value = "/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Productos> agregarProducto(@RequestBody Productos producto) {
+	public ResponseEntity<Producto> agregarProducto(@RequestBody Producto producto) {
 		try {
-			Productos productoAgregado = productosService.agregarProducto(producto);
+			Producto productoAgregado = productoService.agregarProducto(producto);
 			return new ResponseEntity<>(productoAgregado, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -44,7 +44,7 @@ public class ProductosController {
 	@DeleteMapping(value = "/{id}/eliminar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Void> eliminarProductoPorId(@PathVariable("id") int id) {
 		try {
-			boolean productoEliminado = productosService.eliminarProductoPorId(id);
+			boolean productoEliminado = productoService.eliminarProductoPorId(id);
 			if (productoEliminado) {
 				return new ResponseEntity<>(HttpStatus.OK);
 			} else {
@@ -56,9 +56,9 @@ public class ProductosController {
 	}
 	
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Productos> mostrarProductoPorId(@PathVariable("id") int id) {
+	public ResponseEntity<Producto> mostrarProductoPorId(@PathVariable("id") int id) {
 		try {
-			Productos producto = productosService.mostrarProductoPorId(id);
+			Producto producto = productoService.mostrarProductoPorId(id);
 			if (producto != null) {
 				return new ResponseEntity<>(producto, HttpStatus.OK);
 			} else {
@@ -70,9 +70,9 @@ public class ProductosController {
 	}
 	
 	@PutMapping(value = "/{id}/editar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Productos> editarPrecioProducto(@PathVariable("id") int id, @RequestBody Productos producto) {
+	public ResponseEntity<Producto> editarPrecioProducto(@PathVariable("id") int id, @RequestBody Producto producto) {
 		try {
-			Productos productoActualizado = productosService.editarPrecioProducto(id, producto);
+			Producto productoActualizado = productoService.editarPrecioProducto(id, producto);
 			if (productoActualizado != null) {
 				return new ResponseEntity<>(productoActualizado, HttpStatus.OK);
 			} else {

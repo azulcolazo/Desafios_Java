@@ -8,21 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.coderhouse.entidades.Clientes;
-import com.coderhouse.repositorios.ClientesRepository;
+import com.coderhouse.entidades.Cliente;
+import com.coderhouse.repositorios.ClienteRepository;
 
 @Service
-public class ClientesService {
+public class ClienteService {
 	
 	@Autowired
-	private ClientesRepository clientesRepository;
+	private ClienteRepository clienteRepository;
 	
-	public List<Clientes> listarClientes() {
-		return clientesRepository.findAll();
+	public List<Cliente> listarClientes() {
+		return clienteRepository.findAll();
 	}
 	
 	public int edadCliente(int id) {
-			Clientes cliente = clientesRepository.findById(id).orElse(null);
+			Cliente cliente = clienteRepository.findById(id).orElse(null);
 			if (cliente != null) {
 				Period periodo = Period.between(cliente.getFechaNacimiento(), LocalDate.now());
 				Integer edad = periodo.getYears();
@@ -33,17 +33,17 @@ public class ClientesService {
 		
 	}
 	
-	public Clientes agregarCliente(Clientes cliente) {
-		return clientesRepository.save(cliente);
+	public Cliente agregarCliente(Cliente cliente) {
+		return clienteRepository.save(cliente);
 	}
 	
-	public Clientes editarNombreCliente(int id, Clientes clienteActualizado) {
+	public Cliente editarNombreCliente(int id, Cliente clienteActualizado) {
 		try {
-			Clientes cliente = clientesRepository.findById(id).orElse(null);
+			Cliente cliente = clienteRepository.findById(id).orElse(null);
 			if (cliente != null) {
 				cliente.setNombre(clienteActualizado.getNombre());
 				cliente.setApellido(clienteActualizado.getApellido());
-				return clientesRepository.save(cliente);
+				return clienteRepository.save(cliente);
 			} else {
 				return null;
 			}
@@ -54,15 +54,15 @@ public class ClientesService {
 	
 	public boolean eliminarClientePorId(int id) {
 		try {
-			clientesRepository.deleteById(id);
+			clienteRepository.deleteById(id);
 			return true;
 		} catch (EmptyResultDataAccessException e) {
 			return false;
 		}
 	}
 	
-	public Clientes mostrarClientePorId(int id) {
-		return clientesRepository.findById(id).orElse(null);
+	public Cliente mostrarClientePorId(int id) {
+		return clienteRepository.findById(id).orElse(null);
 	}
 
 	

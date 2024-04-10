@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "productos")
-public class Productos {
+public class Producto {
 
 	//Campos-Atributos
 	@Id
@@ -30,11 +30,11 @@ public class Productos {
 
 	
 	@ManyToMany(mappedBy = "productos")
-	private List<Ventas> ventas;
+	private List<Venta> venta;
 	
 	
 	//Constructor
-	public Productos() {
+	public Producto() {
 	}
 	
 	
@@ -71,12 +71,12 @@ public class Productos {
 		this.precio = precio;
 	}
 
-	public List<Ventas> getVentas() {
-		return ventas;
+	public List<Venta> getVentas() {
+		return venta;
 	}
 
-	public void setVentas(List<Ventas> ventas) {
-		this.ventas = ventas;
+	public void setVentas(List<Venta> venta) {
+		this.venta = venta;
 	}
 
 	public int getStock() {

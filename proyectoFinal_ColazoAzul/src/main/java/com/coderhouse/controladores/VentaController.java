@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coderhouse.entidades.Ventas;
-import com.coderhouse.servicios.VentasService;
+import com.coderhouse.entidades.Venta;
+import com.coderhouse.servicios.VentaService;
 
 @RestController
 @RequestMapping("/ventas")
-public class VentasController {
+public class VentaController {
 
 	@Autowired
-	private VentasService ventasService;
+	private VentaService ventaService;
 	
 	@GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<Ventas>> listarVentas() {
+	public ResponseEntity<List<Venta>> listarVentas() {
 		try {
-			List<Ventas> ventas = ventasService.listarVentas();
-			return new ResponseEntity<>(ventas, HttpStatus.OK);
+			List<Venta> venta = ventaService.listarVentas();
+			return new ResponseEntity<>(venta, HttpStatus.OK);
 		} catch (Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Ventas> mostrarVentaPorId(@PathVariable("id") int id) {
+	public ResponseEntity<Venta> mostrarVentaPorId(@PathVariable("id") int id) {
 		try {
-			Ventas venta = ventasService.mostrarVentaPorId(id);
+			Venta venta = ventaService.mostrarVentaPorId(id);
 			if (venta != null) {
 				return new ResponseEntity<>(venta, HttpStatus.OK);
 			} else {
@@ -49,9 +49,9 @@ public class VentasController {
 	}
 	
 	@PostMapping(value = "/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Ventas> agregarVenta(@RequestBody Ventas venta) {
+	public ResponseEntity<Venta> agregarVenta(@RequestBody Venta venta) {
 		try {
-			Ventas ventaAgregada = ventasService.agregarVenta(venta);
+			Venta ventaAgregada = ventaService.agregarVenta(venta);
 			return new ResponseEntity<>(ventaAgregada, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,7 +61,7 @@ public class VentasController {
 	@DeleteMapping(value = "/{id}/eliminar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Void> eliminarVentaPorId(@PathVariable("id") int id) {
 		try {
-			boolean eliminado = ventasService.eliminarVentaPorId(id);
+			boolean eliminado = ventaService.eliminarVentaPorId(id);
 			if (eliminado) {
 				return new ResponseEntity<>(HttpStatus.OK);
 			} else {

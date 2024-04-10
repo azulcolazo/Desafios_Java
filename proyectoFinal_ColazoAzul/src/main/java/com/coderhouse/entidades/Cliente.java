@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Clientes{
+public class Cliente{
 
 	//Campos-Atributos
 	@Id
@@ -32,13 +32,13 @@ public class Clientes{
 	
 	//Foreign key
 	@OneToMany(mappedBy = "cliente")
-	private List<Ventas> ventas;
+	private List<Venta> venta;
 	
 	@OneToMany(mappedBy = "cliente")
-	private List<Facturas> facturas;
+	private List<Factura> factura;
 	
 	//Constructor
-	public Clientes() {
+	public Cliente() {
 	}
 	
 	
@@ -74,20 +74,20 @@ public class Clientes{
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
-	public List<Ventas> getVentas() {
-		return ventas;
+	public List<Venta> getVentas() {
+		return venta;
 	}
 
-	public void setVentas(List<Ventas> ventas) {
-		this.ventas = ventas;
+	public void setVentas(List<Venta> venta) {
+		this.venta = venta;
 	}
 
-	public List<Facturas> getFacturas() {
-		return facturas;
+	public List<Factura> getFacturas() {
+		return factura;
 	}
 
-	public void setFacturas(List<Facturas> facturas) {
-		this.facturas = facturas;
+	public void setFacturas(List<Factura> factura) {
+		this.factura = factura;
 	}
 
 
@@ -105,7 +105,7 @@ public class Clientes{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Clientes other = (Clientes) obj;
+		Cliente other = (Cliente) obj;
 		return dni == other.dni;
 	}
 	

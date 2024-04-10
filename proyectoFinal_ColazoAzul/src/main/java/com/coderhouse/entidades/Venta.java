@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ventas")
-public class Ventas {
+public class Venta {
 	
 	//Atributos-Campos
 	@Id
@@ -32,20 +32,20 @@ public class Ventas {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
-	private Clientes cliente;
+	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "venta")
-	private List<Facturas> facturas;
+	private List<Factura> factura;
 	
 	@ManyToMany
     @JoinTable(name = "venta_producto",
                joinColumns = @JoinColumn(name = "id_venta"),
                inverseJoinColumns = @JoinColumn(name = "id_producto"))
-    private List<Productos> productos;
+    private List<Producto> producto;
 	
 	
 	//Constructor
-	public Ventas() {
+	public Venta() {
 	}
 
 
@@ -66,11 +66,11 @@ public class Ventas {
 		this.fecha = fecha;
 	}
 
-	public Clientes getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Clientes cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
@@ -82,20 +82,20 @@ public class Ventas {
 		this.cantidad = cantidad;
 	}
 
-	public List<Facturas> getFacturas() {
-		return facturas;
+	public List<Factura> getFacturas() {
+		return factura;
 	}
 
-	public void setFacturas(List<Facturas> facturas) {
-		this.facturas = facturas;
+	public void setFacturas(List<Factura> factura) {
+		this.factura = factura;
 	}
 
-	public List<Productos> getProductos() {
-		return productos;
+	public List<Producto> getProductos() {
+		return producto;
 	}
 
-	public void setProductos(List<Productos> productos) {
-		this.productos = productos;
+	public void setProductos(List<Producto> producto) {
+		this.producto = producto;
 	}
 
 	

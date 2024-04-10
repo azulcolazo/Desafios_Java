@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "factura")
-public class Facturas {
+public class Factura {
 
 	@Id
 	@Column(name = "id_factura")
@@ -29,15 +29,15 @@ public class Facturas {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_venta")
-	private Ventas venta;
+	private Venta venta;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
-	private Clientes cliente;
+	private Cliente cliente;
 	
 	
 	//Constructor
-	public Facturas() {
+	public Factura() {
 		super();
 	}
 
@@ -75,15 +75,23 @@ public class Facturas {
 		this.montoTotal = montoTotal;
 	}
 
-	public Ventas getVenta() {
+	public Venta getVenta() {
 		return venta;
 	}
 
-	public void setVenta(Ventas venta) {
+	public void setVenta(Venta venta) {
 		this.venta = venta;
 	}
 	
-	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
 	//Metodos
 	public float calcularMontoFinal() {
 		Float monto = 0f;
