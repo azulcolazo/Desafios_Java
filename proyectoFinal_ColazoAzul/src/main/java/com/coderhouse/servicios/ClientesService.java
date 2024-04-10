@@ -43,7 +43,7 @@ public class ClientesService {
 			if (cliente != null) {
 				cliente.setNombre(clienteActualizado.getNombre());
 				cliente.setApellido(clienteActualizado.getApellido());
-				return clientesRepository.save(clienteActualizado);
+				return clientesRepository.save(cliente);
 			} else {
 				return null;
 			}

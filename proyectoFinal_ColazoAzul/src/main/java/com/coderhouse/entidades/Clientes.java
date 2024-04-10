@@ -34,6 +34,9 @@ public class Clientes{
 	@OneToMany(mappedBy = "cliente")
 	private List<Ventas> ventas;
 	
+	@OneToMany(mappedBy = "cliente")
+	private List<Facturas> facturas;
+	
 	//Constructor
 	public Clientes() {
 	}
@@ -69,6 +72,22 @@ public class Clientes{
 	}
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+	
+	public List<Ventas> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(List<Ventas> ventas) {
+		this.ventas = ventas;
+	}
+
+	public List<Facturas> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Facturas> facturas) {
+		this.facturas = facturas;
 	}
 
 

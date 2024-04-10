@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -27,14 +25,13 @@ public class Productos {
 	private String categoria;
 	@Column(name = "precio")
 	private float precio;
+	@Column(name = "stock")
+	private int stock;
+
 	
-	//Foreign key
-	/*@ManyToMany(mappedBy = "producto")
-	private List<Ventas> ventas;*/
-	
-	@ManyToMany
-	@JoinTable(name = "pedidos", joinColumns = @JoinColumn(name = "id_producto"), inverseJoinColumns = @JoinColumn(name = "id_venta"))
+	@ManyToMany(mappedBy = "productos")
 	private List<Ventas> ventas;
+	
 	
 	//Constructor
 	public Productos() {
@@ -73,7 +70,22 @@ public class Productos {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	
+
+	public List<Ventas> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(List<Ventas> ventas) {
+		this.ventas = ventas;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 	
 
 } 

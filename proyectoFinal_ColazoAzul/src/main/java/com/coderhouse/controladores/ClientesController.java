@@ -80,12 +80,12 @@ public class ClientesController {
 	
 	
 	// Solicitud DELETE, metodo para borrar un cliente a partir de un id
-	@DeleteMapping(value = "{id}/borrar")
-	public ResponseEntity<Void> borrarClientePorId (@PathVariable("id") int id) {
+	@DeleteMapping(value = "{id}/eliminar")
+	public ResponseEntity<Void> eliminarClientePorId (@PathVariable("id") int id) {
 		try {
 			boolean clienteABorrar = clientesService.eliminarClientePorId(id);
 			if (clienteABorrar) {
-				return new ResponseEntity<>(HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
