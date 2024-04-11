@@ -58,12 +58,12 @@ public class VentaController {
 		}
 	}
 	
-	@DeleteMapping(value = "/{id}/eliminar", consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@DeleteMapping(value = "/{id}/eliminar")
 	public ResponseEntity<Void> eliminarVentaPorId(@PathVariable("id") int id) {
 		try {
 			boolean eliminado = ventaService.eliminarVentaPorId(id);
 			if (eliminado) {
-				return new ResponseEntity<>(HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

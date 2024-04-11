@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.coderhouse.entidades.Cliente;
 import com.coderhouse.entidades.Factura;
-import com.coderhouse.repositorios.ClienteRepository;
 import com.coderhouse.repositorios.FacturaRepository;
 
 @Service
@@ -16,8 +14,6 @@ public class FacturaService {
 
 	@Autowired
 	private FacturaRepository facturaRepository;
-	@Autowired
-	private ClienteRepository clienteRepository;
 	
 	public List<Factura> listarFacturas() {
 		return facturaRepository.findAll();
@@ -27,7 +23,7 @@ public class FacturaService {
 		return facturaRepository.findById(id).orElse(null);
 	}
 	
-	public boolean eliminarClientePorId(int id) {
+	public boolean eliminarFacturaPorId(int id) {
 		try {
 			facturaRepository.deleteById(id);
 			return true;
@@ -37,12 +33,7 @@ public class FacturaService {
 	}
 	
 	public Factura agregarFactura(Factura factura) {
-		Cliente cliente = factura.getCliente();
-        if (cliente == null || clienteRepository.existsById(cliente.getIdCliente())) {
-            return null;
-        } else {
         return facturaRepository.save(factura);
-        }
 	}
 	
 	public Factura editarFacturaPorId(Factura factura, int id) {

@@ -29,7 +29,7 @@ public class Producto {
 	private int stock;
 
 	
-	@ManyToMany(mappedBy = "productos")
+	@ManyToMany(mappedBy = "producto")
 	private List<Venta> venta;
 	
 	

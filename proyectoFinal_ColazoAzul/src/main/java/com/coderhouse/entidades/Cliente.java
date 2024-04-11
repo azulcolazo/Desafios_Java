@@ -38,10 +38,20 @@ public class Cliente{
 	private List<Factura> factura;
 	
 	//Constructor
-	public Cliente() {
+	public Cliente(int idCliente, String nombre, String apellido, int dni, LocalDate fechaNacimiento, List<Venta> venta,
+			List<Factura> factura) {
+		super();
+		this.idCliente = idCliente;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.fechaNacimiento = fechaNacimiento;
+		this.venta = venta;
+		this.factura = factura;
 	}
-	
-	
+
+
+
 	//Getters and Setters
 	public int getIdCliente() {
 		return idCliente;

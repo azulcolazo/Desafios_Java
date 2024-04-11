@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.coderhouse.entidades.Producto;
 import com.coderhouse.servicios.ProductoService;
 
+@RestController
+@RequestMapping("/productos")
 public class ProductoController {
 
 	@Autowired
@@ -41,12 +45,12 @@ public class ProductoController {
 		}
 	}
 	
-	@DeleteMapping(value = "/{id}/eliminar", consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@DeleteMapping(value = "/{id}/eliminar")
 	public ResponseEntity<Void> eliminarProductoPorId(@PathVariable("id") int id) {
 		try {
 			boolean productoEliminado = productoService.eliminarProductoPorId(id);
 			if (productoEliminado) {
-				return new ResponseEntity<>(HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

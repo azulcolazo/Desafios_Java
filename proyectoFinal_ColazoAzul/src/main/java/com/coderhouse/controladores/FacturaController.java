@@ -59,8 +59,8 @@ public class FacturaController {
 		}
 	}
 	
-	@PostMapping(value = "/{id}/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Factura> agregarFactura(@PathVariable("id") int id, @RequestBody Factura factura) {
+	@PostMapping(value = "/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Factura> agregarFactura(@RequestBody Factura factura) {
 		try {
 			Factura facturaGuardada = facturaService.agregarFactura(factura);
 			if (facturaGuardada != null) {
@@ -73,10 +73,10 @@ public class FacturaController {
 		}
 	}
 	
-	@DeleteMapping(value = "/{id}/eliminar", consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@DeleteMapping(value = "/{id}/eliminar")
 	public ResponseEntity<Void> eliminarFacturaPorId(@PathVariable("id") int id) {
 		try {
-			boolean eliminado = facturaService.eliminarClientePorId(id);
+			boolean eliminado = facturaService.eliminarFacturaPorId(id);
 			if (eliminado) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} else {
