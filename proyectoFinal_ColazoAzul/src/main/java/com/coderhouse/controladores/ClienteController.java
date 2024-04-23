@@ -29,8 +29,8 @@ public class ClienteController {
 	@GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Cliente>> listarClientes() {
 		try {
-			List<Cliente> cliente = clienteService.listarClientes();
-			return new ResponseEntity<>(cliente, HttpStatus.OK); 
+			List<Cliente> clientes = clienteService.listarClientes();
+			return new ResponseEntity<>(clientes, HttpStatus.OK); 
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 

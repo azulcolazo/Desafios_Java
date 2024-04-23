@@ -1,6 +1,9 @@
 package com.coderhouse.entidades;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.coderhouse.clasesSoporte.Linea;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,12 +12,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "factura")
 public class Factura {
-
+	
 	@Id
 	@Column(name = "id_factura")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +28,19 @@ public class Factura {
 	private String metodoPago;
 	@Column(name = "fecha")
 	private LocalDate fecha;
-	@Column(name = "monto_total")
-	private float montoTotal;
+	@Column(name = "monto_final")
+	private float montoFinal;
 	
+	private boolean procesada;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_venta")
+	@OneToMany(mappedBy = "factura")
+	private List<Linea> lineas;
+	
+	@OneToOne(mappedBy = "factura")
 	private Venta venta;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_cliente")
+	@JoinColumn(name = "cliente")
 	private Cliente cliente;
 	
 	
@@ -42,55 +50,80 @@ public class Factura {
 	}
 
 
-	//Getters y Setters
-	public int getIdFactura() {
-		return idFactura;
-	}
-	
-	
-	public void setIdFactura(int idFactura) {
+	public Factura(int idFactura, String metodoPago, LocalDate fecha, float montoFinal, boolean procesada,
+			List<Linea> lineas, Venta venta, Cliente cliente) {
+		super();
 		this.idFactura = idFactura;
-	}
-	
-	
-	public String getMetodoPago() {
-		return metodoPago;
-	}
-	
-	
-	public void setMetodoPago(String metodoPago) {
 		this.metodoPago = metodoPago;
+		this.fecha = fecha;
+		this.montoFinal = montoFinal;
+		this.procesada = procesada;
+		this.lineas = lineas;
+		this.venta = venta;
+		this.cliente = cliente;
 	}
-	
-	
+
+
+
+	//Getters y Setters
 	public LocalDate getFecha() {
 		return fecha;
 	}
-	
+
 	
 	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+		if(!procesada) {
+			this.fecha = fecha;
+		}
+	}
+
+	
+	public float getMontoFinal() {
+		return montoFinal;
 	}
 	
 	
-	public float getMontoTotal() {
-		return montoTotal;
+	public void setMontoFinal(float montoFinal) {
+		if(!procesada) {
+			this.montoFinal = montoFinal;
+		}
 	}
 	
 	
-	public void setMontoTotal(float montoTotal) {
-		this.montoTotal = montoTotal;
+	public boolean isProcesada() {
+		return procesada;
 	}
 	
 	
-	public Venta getVenta() {
+	public void setProcesada(boolean procesada) {
+		if(!this.procesada) {
+			this.procesada = procesada;
+		}
+	}
+	
+	
+	public List<Linea> getLineas() {
+		return lineas;
+	}
+	
+	
+	public void setLineas(List<Linea> lineas) {
+		if(!procesada) {
+			this.lineas = lineas;
+		}
+	}
+	
+	
+	/*public Venta getVenta() {
 		return venta;
 	}
 	
 	
 	public void setVenta(Venta venta) {
-		this.venta = venta;
-	}
+		if(!procesada) {
+			this.venta = venta;
+		}
+	}*/
 	
 	
 	public Cliente getCliente() {
@@ -99,21 +132,47 @@ public class Factura {
 	
 	
 	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	} 
+		if(!procesada) {
+			this.cliente = cliente;
+		}
+	}
 	
-
-
+	
+	public int getIdFactura() {
+		return idFactura;
+	}
+	
+	
+	public String getMetodoPago() {
+		return metodoPago;
+	}
+	
+	
+	public void setIdFactura(int idFactura) {
+		if(!procesada) {
+			this.idFactura = idFactura;
+		}
+	}
+	
+	
+	public void setMetodoPago(String metodoPago) {
+		if(!procesada) {
+			this.metodoPago = metodoPago;
+		}
+	}
+	
+	
+	
 	//Metodos
 	public float calcularMontoFinal() {
-		Float monto = 0f;
-		for (int i = 0; i < venta.getProductos().size(); i++) {
-			float precio = venta.getProductos().get(i).getPrecio() * venta.getCantidad().get(i);
-			monto += precio;
+		float monto = 0;
+		for(Linea linea : lineas) {
+			monto += linea.getProducto().getPrecio() * linea.getCantidad();
 		}
 		return monto;
 	}
 
 
-	
+
+
 }

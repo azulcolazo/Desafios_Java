@@ -32,9 +32,6 @@ public class Cliente{
 	
 	//Foreign key
 	@OneToMany(mappedBy = "cliente")
-	private List<Venta> venta;
-	
-	@OneToMany(mappedBy = "cliente")
 	private List<Factura> factura;
 	
 	//Constructor
@@ -46,8 +43,11 @@ public class Cliente{
 		this.apellido = apellido;
 		this.dni = dni;
 		this.fechaNacimiento = fechaNacimiento;
-		this.venta = venta;
 		this.factura = factura;
+	}
+
+	public Cliente() {
+		super();
 	}
 
 
@@ -83,22 +83,14 @@ public class Cliente{
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	
-	public List<Venta> getVentas() {
-		return venta;
-	}
 
-	public void setVentas(List<Venta> venta) {
-		this.venta = venta;
-	}
-
-	public List<Factura> getFacturas() {
+	/*public List<Factura> getFacturas() {
 		return factura;
 	}
 
 	public void setFacturas(List<Factura> factura) {
 		this.factura = factura;
-	}
+	}*/
 
 
 	//Hashcode and Equals para dni

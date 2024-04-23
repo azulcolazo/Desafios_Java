@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,34 +44,21 @@ public class FacturaController {
 		}
 	}
 	
-	@PutMapping(value = "/{id}/editar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Factura> editarFacturaPorId(@PathVariable("id") int id, @RequestBody Factura factura) {
-		try {
-			Factura facturaEditada = facturaService.editarFacturaPorId(factura, id);
-			if (facturaEditada != null) {
-				return new ResponseEntity<>(facturaEditada, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 	
 	@PostMapping(value = "/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Factura> agregarFactura(@RequestBody Factura factura) {
+	public ResponseEntity<?> agregarFactura(@RequestBody Factura factura) {
 		try {
-			Factura facturaGuardada = facturaService.agregarFactura(factura);
-			if (facturaGuardada != null) {
+			Object facturaGuardada = facturaService.agregarFactura(factura);
+			if ( !(facturaGuardada instanceof String)) {
 				return new ResponseEntity<>(facturaGuardada, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(facturaGuardada, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@DeleteMapping(value = "/{id}/eliminar")
 	public ResponseEntity<Void> eliminarFacturaPorId(@PathVariable("id") int id) {
 		try {

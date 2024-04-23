@@ -3,20 +3,20 @@ package com.coderhouse.entidades;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.coderhouse.clasesSoporte.Linea;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ventas")
+@Table(name = "venta")
 public class Venta {
 	
 	//Atributos-Campos
@@ -26,26 +26,28 @@ public class Venta {
 	private int idVenta;
 	@Column(name = "fecha")
 	private LocalDate fecha;
-	@Column(name = "cantidad")
-	private List<Integer> cantidad;
 	
+	@OneToMany
+	@JoinColumn(name = "id_linea")
+	private List<Linea> lineas;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_cliente")
-	private Cliente cliente;
+	@OneToOne
+	@JoinColumn(name = "factura")
+	private Factura factura;
 	
-	@OneToMany(mappedBy = "venta")
-	private List<Factura> factura;
-	
-	@ManyToMany
-    @JoinTable(name = "venta_producto",
-               joinColumns = @JoinColumn(name = "id_venta"),
-               inverseJoinColumns = @JoinColumn(name = "id_producto"))
-    private List<Producto> producto;
-	
-	
+
 	//Constructor
+	public Venta(int idVenta, LocalDate fecha, List<Linea> lineas, Cliente cliente, Factura factura) {
+		super();
+		this.idVenta = idVenta;
+		this.fecha = fecha;
+		this.lineas = lineas;
+		this.factura = factura;
+	}
+	
+
 	public Venta() {
+		super();
 	}
 
 
@@ -53,6 +55,7 @@ public class Venta {
 	public int getIdVenta() {
 		return idVenta;
 	}
+
 
 	public void setIdVenta(int idVenta) {
 		this.idVenta = idVenta;
@@ -66,37 +69,24 @@ public class Venta {
 		this.fecha = fecha;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public List<Linea> getLineas() {
+		return lineas;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setLineas(List<Linea> lineas) {
+		this.lineas = lineas;
 	}
 
-	public List<Integer> getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(List<Integer> cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public List<Factura> getFacturas() {
+	public Factura getFactura() {
 		return factura;
 	}
 
-	public void setFacturas(List<Factura> factura) {
+	public void setFactura(Factura factura) {
 		this.factura = factura;
 	}
+	
 
-	public List<Producto> getProductos() {
-		return producto;
-	}
-
-	public void setProductos(List<Producto> producto) {
-		this.producto = producto;
-	}
+	
 
 	
 }

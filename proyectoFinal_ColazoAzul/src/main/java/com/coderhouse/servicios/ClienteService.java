@@ -18,7 +18,8 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 	
 	public List<Cliente> listarClientes() {
-		return clienteRepository.findAll();
+		List<Cliente> clientes = clienteRepository.findAll();
+		return clientes;
 	}
 	
 	public int edadCliente(int id) {
