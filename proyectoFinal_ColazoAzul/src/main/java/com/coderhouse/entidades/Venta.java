@@ -27,9 +27,6 @@ public class Venta {
 	@Column(name = "fecha")
 	private LocalDate fecha;
 	
-	@OneToMany
-	@JoinColumn(name = "id_linea")
-	private List<Linea> lineas;
 	
 	@OneToOne
 	@JoinColumn(name = "factura")
@@ -41,11 +38,9 @@ public class Venta {
 		super();
 		this.idVenta = idVenta;
 		this.fecha = fecha;
-		this.lineas = lineas;
 		this.factura = factura;
 	}
 	
-
 	public Venta() {
 		super();
 	}
@@ -55,7 +50,6 @@ public class Venta {
 	public int getIdVenta() {
 		return idVenta;
 	}
-
 
 	public void setIdVenta(int idVenta) {
 		this.idVenta = idVenta;
@@ -69,14 +63,6 @@ public class Venta {
 		this.fecha = fecha;
 	}
 
-	public List<Linea> getLineas() {
-		return lineas;
-	}
-
-	public void setLineas(List<Linea> lineas) {
-		this.lineas = lineas;
-	}
-
 	public Factura getFactura() {
 		return factura;
 	}
@@ -84,9 +70,5 @@ public class Venta {
 	public void setFactura(Factura factura) {
 		this.factura = factura;
 	}
-	
-
-	
-
 	
 }

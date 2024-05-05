@@ -20,6 +20,7 @@ import jakarta.persistence.Table;
 @Table(name = "factura")
 public class Factura {
 	
+	//Campos - Atributos
 	@Id
 	@Column(name = "id_factura")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,8 @@ public class Factura {
 	
 	private boolean procesada;
 	
+	
+	//Relaciones entre tablas
 	@OneToMany(mappedBy = "factura")
 	private List<Linea> lineas;
 	
@@ -114,18 +117,6 @@ public class Factura {
 	}
 	
 	
-	/*public Venta getVenta() {
-		return venta;
-	}
-	
-	
-	public void setVenta(Venta venta) {
-		if(!procesada) {
-			this.venta = venta;
-		}
-	}*/
-	
-	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -162,7 +153,6 @@ public class Factura {
 	}
 	
 	
-	
 	//Metodos
 	public float calcularMontoFinal() {
 		float monto = 0;
@@ -171,8 +161,5 @@ public class Factura {
 		}
 		return monto;
 	}
-
-
-
 
 }

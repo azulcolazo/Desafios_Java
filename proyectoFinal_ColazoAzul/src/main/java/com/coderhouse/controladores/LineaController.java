@@ -24,6 +24,7 @@ public class LineaController {
 	@Autowired
 	private LineaService lineaService;
 	
+	// Solicitud GET, metodo para listar todas las lineas de la base de datos
 	@GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<Linea>> listarLineas() {
 		try {
@@ -34,6 +35,7 @@ public class LineaController {
 		}
 	}
 	
+	// Solicitud POST, metodo para agregar una linea, proporcionando los datos de éste a través del formato JSON
 	@PostMapping(value = "/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<?> agregarLinea(@RequestBody Linea linea) {
 		try {
@@ -48,6 +50,7 @@ public class LineaController {
 		}
 	}
 	
+	// Solicitud DELETE, metodo para borrar una linea a partir de un id
 	@DeleteMapping(value = "/eliminar/{id}")
 	public ResponseEntity<?> eliminarLinea(@PathVariable("id") int id) {
 		try {

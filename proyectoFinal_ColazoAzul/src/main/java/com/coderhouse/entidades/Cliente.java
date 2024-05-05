@@ -30,7 +30,7 @@ public class Cliente{
 	@Column (name = "fecha_nacimiento")
 	private LocalDate fechaNacimiento;
 	
-	//Foreign key
+	//Relaciones entre tablas
 	@OneToMany(mappedBy = "cliente")
 	private List<Factura> factura;
 	
@@ -83,14 +83,6 @@ public class Cliente{
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-
-	/*public List<Factura> getFacturas() {
-		return factura;
-	}
-
-	public void setFacturas(List<Factura> factura) {
-		this.factura = factura;
-	}*/
 
 
 	//Hashcode and Equals para dni

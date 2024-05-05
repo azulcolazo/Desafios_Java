@@ -24,6 +24,7 @@ public class FacturaController {
 	@Autowired
 	private FacturaService facturaService;
 	
+	// Solicitud GET, metodo para listar todas las facturas de la base de datos
 	@GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<Factura>> listarFacturas() {
 		try {
@@ -34,6 +35,7 @@ public class FacturaController {
 		}
 	}
 	
+	//Solicitud GET, metodo para listar una factura especifica proporcionando en id en la URL
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Factura> mostrarFacturaPorId(@PathVariable("id") int id) {
 		try {
@@ -44,7 +46,7 @@ public class FacturaController {
 		}
 	}
 	
-	
+	// Solicitud POST, metodo para agregar una factura, proporcionando los datos de éste a través del formato JSON
 	@PostMapping(value = "/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<?> agregarFactura(@RequestBody Factura factura) {
 		try {
@@ -59,6 +61,7 @@ public class FacturaController {
 		}
 	}
 
+	// Solicitud DELETE, metodo para borrar una factura a partir de un id
 	@DeleteMapping(value = "/{id}/eliminar")
 	public ResponseEntity<Void> eliminarFacturaPorId(@PathVariable("id") int id) {
 		try {

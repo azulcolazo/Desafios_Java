@@ -16,6 +16,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "linea")
 public class Linea {
+	
+	//Campos - Atrinutos
 
 	@Id
 	@Column(name = "id_linea")
@@ -24,6 +26,8 @@ public class Linea {
 	@Column(name = "cantidad")
 	private int cantidad;
 	
+	//Relaciones entre tablas
+	
 	@ManyToOne
 	@JoinColumn(name = "producto")
 	private Producto producto;
@@ -31,20 +35,24 @@ public class Linea {
 	@ManyToOne
 	@JoinColumn(name = "factura")
 	private Factura factura;
-	
-	@ManyToOne
-	@JoinColumn(name = "venta")
-	private Venta venta;
 
+	//Constructor
+	
 	public Linea(int idLinea, int cantidad, Producto producto, Factura factura, Venta venta) {
 		super();
 		this.idLinea = idLinea;
 		this.cantidad = cantidad;
 		this.producto = producto;
 		this.factura = factura;
-		this.venta = venta;
+		//this.venta = venta;
 	}
 
+	public Linea() {
+		super();
+	}
+
+	//Getters y setters
+	
 	public int getIdLinea() {
 		return idLinea;
 	}
@@ -75,14 +83,6 @@ public class Linea {
 
 	public void setFactura(Factura factura) {
 		this.factura = factura;
-	}
-
-	public Venta getVenta() {
-		return venta;
-	}
-
-	public void setVenta(Venta venta) {
-		this.venta = venta;
 	}
 	
 	

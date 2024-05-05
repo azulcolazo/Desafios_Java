@@ -25,6 +25,7 @@ public class ProductoController {
 	@Autowired
 	private ProductoService productoService;
 	
+	// Solicitud GET, metodo para listar todos los productos de la base de datos
 	@GetMapping(value= "/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<Producto>> listarProductos() {
 		try {
@@ -35,6 +36,7 @@ public class ProductoController {
 		}
 	}
 	
+	// Solicitud POST, metodo para agregar un producto, proporcionando los datos de éste a través del formato JSON
 	@PostMapping(value = "/agregar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Producto> agregarProducto(@RequestBody Producto producto) {
 		try {
@@ -45,6 +47,7 @@ public class ProductoController {
 		}
 	}
 	
+	// Solicitud DELETE, metodo para borrar un producto a partir de un id
 	@DeleteMapping(value = "/{id}/eliminar")
 	public ResponseEntity<Void> eliminarProductoPorId(@PathVariable("id") int id) {
 		try {
@@ -59,6 +62,7 @@ public class ProductoController {
 		}
 	}
 	
+	//Solicitud GET, metodo para listar un producto especifico proporcionando en id en la URL
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Producto> mostrarProductoPorId(@PathVariable("id") int id) {
 		try {
@@ -73,6 +77,7 @@ public class ProductoController {
 		}
 	}
 	
+	// Solicitud PUT, metodo para editar el precio de un producto a través del ID proporcionado en la URL
 	@PutMapping(value = "/{id}/editar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Producto> editarPrecioProducto(@PathVariable("id") int id, @RequestBody Producto producto) {
 		try {

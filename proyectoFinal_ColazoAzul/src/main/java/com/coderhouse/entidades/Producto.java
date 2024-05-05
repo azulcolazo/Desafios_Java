@@ -30,7 +30,7 @@ public class Producto {
 	@Column(name = "stock")
 	private int stock;
 
-	
+	//Relaciones entre tablas
 	@OneToMany(mappedBy = "producto")
 	private List<Linea> lineas;
 	
@@ -93,17 +93,5 @@ public class Producto {
 		this.stock = stock;
 	}
 
-	/*public List<Linea> getLineas() {
-		return lineas;
-	}
-
-	public void setLineas(List<Linea> lineas) {
-		this.lineas = lineas;
-	}*/
-	
-	
-	
-	
-	
 
 } 

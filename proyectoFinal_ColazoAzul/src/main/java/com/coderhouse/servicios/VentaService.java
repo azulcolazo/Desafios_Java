@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.coderhouse.entidades.Factura;
 import com.coderhouse.entidades.Venta;
 import com.coderhouse.repositorios.VentaRepository;
 
@@ -33,6 +34,20 @@ public class VentaService {
 			return true;
 		} catch (EmptyResultDataAccessException e) {
 			return false;
+		}
+	}
+	
+	public Venta agregarFactura(int id, Venta ventaActualizada) {
+		try {
+			Venta venta = ventaRepository.findById(id).orElse(null);
+			if(venta != null) {
+				venta.setFactura(ventaActualizada.getFactura());
+				return ventaRepository.save(venta);
+			} else {
+				return null;
+			}
+		} catch (EmptyResultDataAccessException e) {
+			return null;
 		}
 	}
 }

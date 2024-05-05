@@ -94,6 +94,7 @@ public class ClienteController {
 		}
 	}
 
+	//Solicitud GET, metodo para listar un cliente especifico proporcionando en id en la URL
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Cliente> mostrarClientPorId(@PathVariable("id") int id) {
 		try {
